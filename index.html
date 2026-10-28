@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>觅健非标体合作｜资料录入原型 V1.2</title>
+<style>
+:root{--blue:#356df3;--bluebg:#edf3ff;--ink:#202939;--muted:#697586;--line:#dfe4ec;--bg:#f4f6f9;--orange:#8a5700;--orangebg:#fff7e8;--red:#b42318;--redbg:#fff0ef;--green:#18794e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.5 "Microsoft YaHei","PingFang SC",Arial,sans-serif;color:var(--ink)}
+.top{height:56px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:5}.brand{font-size:16px;font-weight:700}.brand span{color:#778195;margin-right:12px;font-size:20px}.user{font-size:12px;color:var(--muted)}
+.page{max-width:1450px;margin:20px auto;padding:0 20px 36px}.head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:16px}h1{font-size:22px;margin:0 0 5px}.sub{color:var(--muted);font-size:13px}.buttons{display:flex;gap:8px;flex-wrap:wrap}
+button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:9px 15px;font:inherit;cursor:pointer;color:var(--ink)}button.primary{background:var(--blue);border-color:var(--blue);color:#fff}button:disabled{opacity:.45;cursor:not-allowed}
+.notice{padding:11px 14px;border:1px solid #f0d19b;background:var(--orangebg);color:#754a09;border-radius:8px;margin-bottom:14px}.error{padding:11px 14px;border:1px solid #f0b8b4;background:var(--redbg);color:var(--red);border-radius:8px;margin:12px 0}.success{padding:10px 12px;border:1px solid #b8e1c8;background:#f0fbf4;color:var(--green);border-radius:8px;margin-top:10px}
+.business-note{grid-column:1/-1;padding:11px 13px;border:1px solid #cdd9f7;background:#f6f8ff;color:#385387;border-radius:8px;font-size:13px}.business-note strong{color:#24458f}.field-state{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:12px;color:var(--muted)}.field-state.ok{color:var(--green)}
+.layout{display:block}.main{min-width:0}
+.section,.sidecard{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}.sectionhead{padding:14px 18px;border-bottom:1px solid #edf0f4;display:flex;justify-content:space-between;align-items:center;gap:12px}.sectionhead h2{font-size:16px;margin:0}.n{display:inline-flex;width:25px;height:25px;align-items:center;justify-content:center;background:var(--bluebg);color:var(--blue);border-radius:6px;font-size:12px;margin-right:8px}.body{padding:18px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 22px}.field{min-width:0}.field label,.label{display:block;font-weight:600;font-size:13px;margin-bottom:6px}.req{color:#d33}.full{grid-column:1/-1}
+input[type=text],input[type=tel],input[type=date],select{width:100%;height:38px;border:1px solid #cfd6e1;border-radius:6px;padding:0 10px;background:#fff;font:inherit;color:var(--ink)}input[readonly]{background:#f7f8fa;color:#697586}input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 2px #356df31a}
+.hint{font-size:12px;color:var(--muted);margin-top:5px}.same{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid var(--line);background:#f8fafc;border-radius:7px;margin-bottom:15px}.same label{font-weight:600}.same small{color:var(--muted)}
+.choices{display:flex;gap:8px;flex-wrap:wrap}.choice{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:7px;padding:8px 11px;cursor:pointer;background:#fff}.choice:has(input:checked){border-color:var(--blue);background:var(--bluebg);color:#244fb6}.choice input{accent-color:var(--blue)}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.plan{display:flex;gap:8px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:8px;cursor:pointer}.plan.active{border-color:var(--blue);background:var(--bluebg)}.plan input{margin-top:4px;accent-color:var(--blue)}.plan strong{display:block}.plan small{display:block;color:var(--muted);margin-top:4px;font-size:12px}
+.list{display:grid;gap:10px}.resp{border:1px solid var(--line);border-radius:8px;padding:13px 14px}.resp.mandatory{border-color:#bfd0ff;background:#f9fbff}.resphead{display:flex;align-items:flex-start;gap:10px}.resphead input{margin-top:4px;accent-color:var(--blue);width:16px;height:16px}.rtitle{font-weight:600;flex:1}.meta{font-size:12px;color:var(--muted);margin-top:4px}.tag{font-size:11px;padding:3px 7px;border-radius:4px;background:#edf0f5;color:#596579;white-space:nowrap}.tag.blue{background:#e7efff;color:#2b5dca}.tag.warn{background:#fff1d8;color:#946000}.indent{margin:10px 0 0 26px}.amountrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.amountrow select{max-width:230px}.component-list{margin:8px 0 0 26px;color:#596579;font-size:12px;padding-left:18px}.component-list li{margin:4px 0}
+.sidecard{padding:15px}.sidecard h3{font-size:14px;margin:0 0 10px}.sumrow{display:flex;justify-content:space-between;gap:12px;margin:8px 0;font-size:13px}.sumrow span:first-child{color:var(--muted)}.sumrow span:last-child{text-align:right;font-weight:600}.rules{padding-left:18px;color:#596579;font-size:12px;margin:0}.rules li{margin:7px 0}
+.uploads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.upload{border:1px dashed #c4cddd;border-radius:8px;padding:14px;background:#fbfcfe}.upload strong{display:block;margin-bottom:5px}.upload p{margin:0 0 10px;color:var(--muted);font-size:12px}
+.bottom{display:flex;justify-content:flex-end;gap:8px;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:10px}.foot{text-align:center;color:var(--muted);font-size:12px;margin:18px 0}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.side{position:static;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.page{padding:0 10px 25px}.grid,.uploads{grid-template-columns:1fr}.plans{grid-template-columns:1fr}.head{display:block}.buttons{margin-top:12px}.side{grid-template-columns:1fr}.body{padding:13px}.top{padding:0 12px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><span>☰</span>觅健非标体合作 / 资料录入</div><div class="user">admin　●</div></header>
+<div class="page">
+  <div class="head"><div><h1>客户资料录入</h1></div><div class="buttons"><button type="button" id="resetBtn">重置表单</button></div></div>
+  <div class="layout">
+    <main class="main">
+      <form id="form" novalidate>
+        <section class="section"><div class="sectionhead"><h2><span class="n">01</span>产品及投保信息</h2></div><div class="body"><div class="grid">
+          <div class="field"><label for="policyType">投保业务类型<span class="req">*</span></label><select id="policyType" required><option value="new">新保</option><option value="originalRenew">原方案续保</option><option value="renewAdd">续保加保</option><option value="renewIncrease">续保加额</option><option value="externalTransfer">外部同类型产品转保</option><option value="internalUpgrade">内部同类型产品升级</option></select></div>
+          <div class="field" id="originalPolicyField" hidden><label for="originalPolicyNo">原保单号<span class="req">*</span></label><input id="originalPolicyNo" type="text" placeholder="请输入原保单号"><div class="field-state" id="originalPolicyState" hidden></div></div>
+          <div class="business-note" id="businessNote"></div>
+          <div class="field full" id="productField"><label for="product" id="productLabel">核保产品<span class="req">*</span></label><select id="product" required>
+            <option value="pay">平安医无忧·乳安康2.0版（互联网）-给付型</option>
+            <option value="reimburse">平安医无忧·乳安康2.0版（互联网）-报销型</option>
+            <option value="plus">平安医无忧·乳安康PLUS（互联网版）</option>
+          </select><div class="hint" id="productHint">切换产品会重新加载责任和保额配置，并清除原产品的责任选择。</div></div>
+          <div class="field"><label>保险公司</label><input type="text" value="平安保险" readonly></div>
+          <div class="field full"><label id="planLabel">产品方案<span class="req">*</span></label><div id="plans" class="plans"></div><div class="hint" id="planHint"></div></div>
+        </div></div></section>
+
+        <section class="section"><div class="sectionhead"><h2><span class="n">02</span>投保人信息</h2></div><div class="body"><div class="grid">
+          <div class="field"><label for="appName">姓名<span class="req">*</span></label><input id="appName" type="text" required placeholder="请输入投保人姓名"></div>
+          <div class="field"><label for="appPhone">手机号<span class="req">*</span></label><input id="appPhone" type="tel" required placeholder="请输入手机号"></div>
+          <div class="field"><label for="appType">证件类型<span class="req">*</span></label><select id="appType"><option>居民身份证</option><option>护照</option><option>其他</option></select></div>
+          <div class="field"><label for="appNo">证件号码<span class="req">*</span></label><input id="appNo" type="text" required placeholder="请输入证件号码"></div>
+          <div class="field"><label for="appGender">性别<span class="req">*</span></label><select id="appGender" required><option value="">请选择</option><option>男</option><option>女</option></select></div>
+          <div class="field"><label for="appDob">出生日期<span class="req">*</span></label><input id="appDob" type="date" required></div>
+        </div></div></section>
+
+        <section class="section"><div class="sectionhead"><h2><span class="n">03</span>被保险人信息</h2></div><div class="body">
+          <div class="same"><input type="checkbox" id="same"><label for="same">投保人与被保险人为同一人</label><small>勾选后自动带入基础身份信息</small></div>
+          <div class="grid">
+            <div class="field"><label for="insName">姓名<span class="req">*</span></label><input id="insName" type="text" required placeholder="请输入被保险人姓名"></div>
+            <div class="field"><label for="insPhone">手机号<span class="req">*</span></label><input id="insPhone" type="tel" required placeholder="请输入手机号"></div>
+            <div class="field"><label for="insType">证件类型<span class="req">*</span></label><select id="insType"><option>居民身份证</option><option>护照</option><option>其他</option></select></div>
+            <div class="field"><label for="insNo">证件号码<span class="req">*</span></label><input id="insNo" type="text" required placeholder="请输入证件号码"></div>
+            <div class="field"><label for="insGender">性别<span class="req">*</span></label><select id="insGender" required><option value="">请选择</option><option>男</option><option>女</option></select></div>
+            <div class="field"><label for="insDob">出生日期<span class="req">*</span></label><input id="insDob" type="date" required></div>
+          </div>
+        </div></section>
+
+        <section class="section" id="underwritingSection"><div class="sectionhead"><h2><span class="n">04</span>被保险人核保信息</h2></div><div class="body"><div class="grid">
+          <div class="field"><label for="age">年龄（周岁）</label><input id="age" type="text" readonly placeholder="根据出生日期计算"></div>
+          <div class="field"><label>有无社保<span class="req">*</span></label><div class="choices"><label class="choice"><input type="radio" name="social" value="有" required>有</label><label class="choice"><input type="radio" name="social" value="无">无</label></div></div>
+          <div class="field"><label for="subtype">分子分型<span class="req">*</span></label><select id="subtype" required><option value="">请选择</option><option>Luminal A</option><option>Luminal B</option><option>HER2过表达</option><option>三阴型</option></select></div>
+          <div class="field"><label for="stage">临床分期<span class="req">*</span></label><select id="stage" required><option value="">请选择</option><option value="0">0期</option><option value="1">I期</option><option value="2">II期</option><option value="3">III期</option></select></div>
+          <div class="field"><label>有无新辅助治疗<span class="req">*</span></label><div class="choices"><label class="choice"><input type="radio" name="neo" value="yes" required>有</label><label class="choice"><input type="radio" name="neo" value="no">无</label></div></div>
+          <div class="field"><label>术后时间<span class="req">*</span></label><div class="choices"><label class="choice"><input type="radio" name="surgery" value="3年以内" required>3年以内</label><label class="choice"><input type="radio" name="surgery" value="3–6年">3–6年</label><label class="choice"><input type="radio" name="surgery" value="6年及以上">6年及以上</label></div></div>
+        </div><div id="eligibilityAlert" class="error" hidden></div><div id="eligibilityOk" class="success" hidden></div></div></section>
+
+        <section class="section"><div class="sectionhead"><h2><span class="n">05</span>保障方案</h2><span class="tag blue" id="planBadge"></span></div><div class="body">
+          <div id="respList" class="list"></div>
+        </div></section>
+
+        <section class="section" id="materialsSection"><div class="sectionhead"><h2><span class="n">06</span>核保资料</h2></div><div class="body">
+          <div class="uploads">
+            <div class="upload"><strong>出入院记录<span class="req">*</span></strong><input type="file" multiple required></div>
+            <div class="upload"><strong>病理检查报告<span class="req">*</span></strong><input type="file" multiple required></div>
+            <div class="upload"><strong>复查报告（超声、CT、核磁等）<span class="req">*</span></strong><input type="file" multiple required></div>
+            <div class="upload"><strong>其他</strong><input type="file" multiple></div>
+          </div>
+        </div></section>
+        <div class="bottom"><button type="button" id="cancelBtn">取消</button><button type="button" id="saveBottom">保存草稿</button><button type="submit" class="primary" id="submitBtn">提交核保</button></div>
+      </form>
+    </main>
+  </div>
+  <div class="foot">觅健非标体合作 · 资料录入页交互原型 V1.2 · 演示原型，不连接真实核保系统</div>
+</div>
+<script>
+const products={
+pay:{name:"给付型",full:"平安医无忧·乳安康2.0版（互联网）-给付型",badge:"给付型 · 3个方案",plans:[
+{label:"方案一：给付型（11万+10万）",code:"PK00209219",mandatory:110000,linked:100000},
+{label:"方案二：给付型（22万+20万）",code:"PK00233109",mandatory:220000,linked:200000},
+{label:"方案三：给付型（33万+30万）",code:"PK00233647",mandatory:330000,linked:300000}],
+mandatory:{code:"CV02653",name:"乳腺恶性肿瘤复发转移保险金"},
+linked:{code:"CV07993",name:"对侧原发性乳腺恶性肿瘤保险"},
+options:[
+{code:"CV02249",name:"特定药品费用医疗保险责任",amount:1000000},
+{code:"CV06241",name:"特定进口药品费用保险责任",amount:1000000},
+{code:"CV08178",name:"医院外购药品责任",amount:100000},
+{code:"CV02249",name:"特定药品费用医疗保险责任",amount:50000}],
+service:"健康管理服务",serviceDisplay:"健康管理服务",serviceCode:"CV02219",serviceAmount:0,},
+reimburse:{name:"报销型",full:"平安医无忧·乳安康2.0版（互联网）-报销型",badge:"报销型 · 1个方案",plans:[{label:"方案一：报销型",code:"PK00233648",mandatory:1000000}],
+mandatory:{code:"CV07994",name:"乳腺恶性肿瘤复发医疗保险"},
+options:[
+{code:"CV07995",name:"对侧原发性乳腺恶性肿瘤医疗保险",amount:1000000},
+{code:"CV02249",name:"特定药品费用医疗保险责任",amount:1000000},
+{code:"CV06241",name:"特定进口药品费用保险责任",amount:1000000},
+{code:"CV08178",name:"医院外购药品责任",amount:100000},
+{code:"CV02249",name:"特定药品费用医疗保险责任",amount:50000}],
+service:"健康管理服务",serviceDisplay:"健康管理服务",serviceCode:"CV02219",serviceAmount:0,},
+plus:{name:"PLUS",full:"平安医无忧·乳安康PLUS（互联网版）",badge:"PLUS · 1个方案",plans:[{label:"方案一：PLUS",code:"方案编号待补"}],
+mandatory:{code:"四合一责任",name:"四合一责任（共享保额）"},shared:true,
+components:["特定恶性肿瘤远端转移疾病保险","特定恶性肿瘤复发疾病保险金","特定恶性肿瘤重度新发疾病保险","特定恶性肿瘤原位癌新发疾病保险"],
+options:[
+{code:"PLUS-OPT-01",name:"恶性肿瘤国内特定药品费用",amount:500000},
+{code:"PLUS-OPT-02",name:"恶性肿瘤海外进口特定药品费用",amount:500000}],}
+};
+const businessRules={
+new:{title:"新保",note:"无需原保单，按新保流程录入资料并提交核保。",action:"提交核保"},
+originalRenew:{title:"原方案续保",note:"关联原保单并回显原产品及保障方案；不重新核保，校验续保资格后进入保费计算流程。",action:"校验续保资格"},
+renewAdd:{title:"续保加保",note:"必须关联原保单，可调整本次保障内容，并对整单重新核保。",action:"提交整单核保"},
+renewIncrease:{title:"续保加额",note:"必须关联原保单，可调整本次保障内容，并对整单重新核保。",action:"提交整单核保"},
+externalTransfer:{title:"外部同类型产品转保",note:"必须关联原保单，可调整本次保障内容，并对整单重新核保。",action:"提交整单核保"},
+internalUpgrade:{title:"内部同类型产品升级",note:"必须关联原保单，可调整本次保障内容，并对整单重新核保。",action:"提交整单核保"}
+};
+const $=id=>document.getElementById(id);let planIndex=0;let chosen={};let linkedChosen=false;let lastProduct="pay";let overlimitResetNotice=false;let renewalQualified=false;
+const yuan=n=>n==null?"待补充":(n/10000).toLocaleString("zh-CN",{maximumFractionDigits:2})+"万元";
+function selectedRadio(name){return document.querySelector('input[name="'+name+'"]:checked')?.value||""}
+function renderPlans(){const p=products[$("product").value],locked=$("policyType").value==="originalRenew";planIndex=Math.min(planIndex,p.plans.length-1);$("plans").innerHTML=p.plans.map((x,i)=>`<label class="plan ${i===planIndex?'active':''}" data-i="${i}"><input type="radio" name="plan" ${i===planIndex?'checked':''} ${locked?'disabled':''}><div><strong>${x.label}</strong></div></label>`).join("");if(!locked)$("plans").querySelectorAll(".plan").forEach(el=>el.addEventListener("click",()=>{planIndex=+el.dataset.i;renderPlans();renderResponsibilities();summary()}));$("planHint").textContent=locked?"原保障方案随原保单回显，本流程不支持调整。":(p.plans.length===1?"当前产品只有一个方案，系统默认选中。":"方案决定必选责任保额；关联可选责任保额同步变化。")}
+function renderResponsibilities(){const key=$("product").value,p=products[key],pl=p.plans[planIndex],locked=$("policyType").value==="originalRenew";let h=`<div class="resp mandatory"><div class="resphead"><input type="checkbox" checked disabled><div class="rtitle">${p.mandatory.name}${p.shared?"":`<div class="meta">保额：${yuan(pl.mandatory)}</div>`}</div><span class="tag blue">必选</span></div>`;
+if(p.shared){h+=`<div class="amountrow indent"><label for="plusAmount">保额<span class="req">*</span></label><select id="plusAmount" required ${locked?'disabled':''}><option value="">请选择保额</option><option value="100000">10万元</option><option value="200000">20万元</option><option value="300000">30万元</option></select></div><ul class="component-list"><strong>四合一责任包含：</strong>${p.components.map(x=>`<li>${x}</li>`).join("")}</ul>`}
+h+="</div>";
+if(p.linked){h+=`<div class="resp"><div class="resphead"><input type="checkbox" id="linked" ${linkedChosen?"checked":""} ${locked?'disabled':''}><div class="rtitle">${p.linked.name}<div class="meta">保额：${yuan(pl.linked)}</div></div><span class="tag">${locked?'原保责任':'可选'}</span></div></div>`}
+p.options.forEach((o,i)=>{const ck=!!chosen[key+"-"+i];h+=`<div class="resp"><div class="resphead"><input type="checkbox" class="optional" data-i="${i}" ${ck?"checked":""} ${locked?'disabled':''}><div class="rtitle">${o.name}<div class="meta">保额：${yuan(o.amount)}</div></div><span class="tag">${locked?'原保责任':'可选'}</span></div></div>`});
+if(p.service)h+=`<div class="resp mandatory"><div class="resphead"><input type="checkbox" checked disabled><div class="rtitle">${p.serviceDisplay||("附带服务："+p.service)}<div class="meta">保额：${p.serviceAmount===0?"0元":yuan(p.serviceAmount)}</div></div><span class="tag blue">自动附带</span></div></div>`;
+$("respList").innerHTML=h;
+if($("linked"))$("linked").addEventListener("change",e=>{linkedChosen=e.target.checked;summary()});
+$("respList").querySelectorAll(".optional").forEach(el=>el.addEventListener("change",e=>{chosen[key+"-"+e.target.dataset.i]=e.target.checked;summary()}));
+$("planBadge").textContent=p.badge;
+if($("plusAmount"))$("plusAmount").addEventListener("change",summary);
+applyPlusRules(false);summary()}
+function applyPlusRules(showPrompt=true){const isPlus=$("product").value==="plus";const alertBox=$("eligibilityAlert"),okBox=$("eligibilityOk"),select=$("plusAmount"),submit=$("submitBtn");alertBox.hidden=true;okBox.hidden=true;let blocked=false;
+if(isPlus){const stage=$("stage").value,neo=selectedRadio("neo");
+if(stage==="3"&&neo==="yes"){blocked=true;alertBox.hidden=false;alertBox.innerHTML="<strong>当前情况不可购买本产品</strong><br>根据平安规则，有新辅助治疗且临床分期为III期的乳腺癌术后患者不可购买PLUS。请核实客户信息或更换符合条件的产品。";if(select){select.value="";select.disabled=true;}const hint=$("plusLimitHint");if(hint)hint.textContent="当前核保条件不符合本产品购买要求。";if(showPrompt&&!window.blockPrompted){window.blockPrompted=true;alert("当前情况不可购买PLUS：有新辅助治疗且临床分期为III期。请核实信息或更换产品。");}}
+else{window.blockPrompted=false;if(select){select.disabled=false;const max=(stage==="3"&&neo==="no")?200000:300000;const opt30=select.querySelector('option[value="300000"]');opt30.disabled=max===200000;opt30.hidden=max===200000;
+if(max===200000&&select.value==="300000"){select.value="";overlimitResetNotice=true;}
+const hint=$("plusLimitHint");if(hint){if(stage===""||neo==="")hint.textContent="请先选择临床分期和有无新辅助治疗，系统将按规则限制最高保额。";else hint.textContent="根据当前核保信息，四合一责任最高可选保额为"+(max===200000?"20万元":"30万元")+"。";}
+if(overlimitResetNotice){okBox.hidden=false;okBox.textContent="核保信息变更后，原已选保额超出当前允许范围，已清除选择，请重新选择保额。";overlimitResetNotice=false;}
+else if(stage!==""&&neo!==""){okBox.hidden=false;okBox.textContent="当前核保信息允许的四合一责任最高保额为"+(max===200000?"20万元":"30万元")+"。";}
+}}}
+if(select&&$("policyType").value==="originalRenew")select.disabled=true;if(submit)submit.disabled=blocked;return blocked}
+function summary(){applyPlusRules(false)}
+function birthFromId(value){const id=value.replace(/\s/g,"").toUpperCase();let raw="";if(/^\d{17}[\dX]$/.test(id))raw=id.slice(6,14);else if(/^\d{15}$/.test(id))raw="19"+id.slice(6,12);else return "";const year=Number(raw.slice(0,4)),month=Number(raw.slice(4,6)),day=Number(raw.slice(6,8)),date=new Date(year,month-1,day);if(year<1900||year>new Date().getFullYear()||date.getFullYear()!==year||date.getMonth()!==month-1||date.getDate()!==day)return "";return raw.slice(0,4)+"-"+raw.slice(4,6)+"-"+raw.slice(6,8)}
+function syncDobFromId(scope){const type=$(scope+"Type"),no=$(scope+"No"),dob=$(scope+"Dob"),isId=type.value==="居民身份证";dob.readOnly=isId;if(isId)dob.value=birthFromId(no.value);if(scope==="app"&&$("same").checked)syncSame();if(scope==="ins")ageCalc()}
+function syncSame(){const same=$("same").checked;const pairs=[["appName","insName"],["appPhone","insPhone"],["appType","insType"],["appNo","insNo"],["appGender","insGender"],["appDob","insDob"]];pairs.forEach(([a,b])=>{const x=$(b);if(same){x.value=$(a).value;x.readOnly=!["appType","appGender"].includes(a);x.disabled=["appType","appGender"].includes(a)}else{x.readOnly=false;x.disabled=false}});if(!same)syncDobFromId("ins");ageCalc()}
+function ageCalc(){const d=$("insDob").value;if(!d){$("age").value="";return}const b=new Date(d+"T00:00:00"),n=new Date();let a=n.getFullYear()-b.getFullYear();if(n.getMonth()<b.getMonth()||(n.getMonth()===b.getMonth()&&n.getDate()<b.getDate()))a--;$("age").value=a>=0?a:""}
+function setSectionRequired(section,enabled){section.querySelectorAll("input,select,textarea").forEach(el=>{if(!enabled){if(el.required)el.dataset.businessRequired="1";el.required=false}else if(el.dataset.businessRequired==="1"){el.required=true;delete el.dataset.businessRequired}})}
+function updateOriginalPolicyState(){const hasValue=$("originalPolicyNo").value.trim()!=="";const state=$("originalPolicyState");state.hidden=!hasValue;state.textContent=hasValue?"已关联原保单（原型模拟回显）":"";state.classList.toggle("ok",hasValue)}
+function updateBusinessType(){const type=$("policyType").value,rule=businessRules[type],needsOriginal=type!=="new",originalRenew=type==="originalRenew";renewalQualified=false;$("originalPolicyField").hidden=!needsOriginal;$("originalPolicyNo").required=needsOriginal;if(!needsOriginal)$("originalPolicyNo").value="";updateOriginalPolicyState();$("businessNote").innerHTML="<strong>"+rule.title+"：</strong>"+rule.note;$("productLabel").innerHTML=(originalRenew?"原保产品":"核保产品")+'<span class="req">*</span>';$("productHint").textContent=originalRenew?"原产品由原保单关联回显，本流程不支持调整。":"切换产品会重新加载责任和保额配置，并清除原产品的责任选择。";$("planLabel").innerHTML=(originalRenew?"原保保障方案":"产品方案")+'<span class="req">*</span>';$("product").disabled=originalRenew;$("underwritingSection").hidden=originalRenew;$("materialsSection").hidden=originalRenew;setSectionRequired($("underwritingSection"),!originalRenew);setSectionRequired($("materialsSection"),!originalRenew);$("submitBtn").textContent=rule.action;renderPlans();renderResponsibilities();summary()}
+function changeProduct(){const old=$("product").value;if(old!==lastProduct){if(!confirm("切换产品将清空原产品的责任选择及保额配置，是否继续？")){$("product").value=lastProduct;return}Object.keys(chosen).filter(k=>k.startsWith(lastProduct+"-")).forEach(k=>delete chosen[k]);linkedChosen=false;lastProduct=old;planIndex=0}renderPlans();renderResponsibilities();summary()}
+$("product").addEventListener("change",changeProduct);$("policyType").addEventListener("change",updateBusinessType);$("originalPolicyNo").addEventListener("input",()=>{renewalQualified=false;updateOriginalPolicyState();$("submitBtn").textContent=businessRules[$("policyType").value].action});$("stage").addEventListener("change",()=>applyPlusRules(true));document.querySelectorAll('input[name="neo"]').forEach(x=>x.addEventListener("change",()=>applyPlusRules(true)));
+$("appNo").addEventListener("input",()=>syncDobFromId("app"));$("appType").addEventListener("change",()=>syncDobFromId("app"));$("insNo").addEventListener("input",()=>syncDobFromId("ins"));$("insType").addEventListener("change",()=>syncDobFromId("ins"));
+$("same").addEventListener("change",syncSame);["appName","appPhone","appType","appNo","appGender","appDob"].forEach(id=>$(id).addEventListener("input",()=>{if($("same").checked)syncSame()}));$("insDob").addEventListener("change",ageCalc);
+function save(){alert("原型演示：已触发保存草稿操作，未写入真实系统。")} $("saveBottom").addEventListener("click",save);$("resetBtn").addEventListener("click",()=>{if(confirm("确认重置表单？"))location.reload()});$("cancelBtn").addEventListener("click",()=>{if(confirm("取消本次录入并重置页面？"))location.reload()});
+$("form").addEventListener("submit",e=>{e.preventDefault();const type=$("policyType").value;if(type==="originalRenew"){if(!$("originalPolicyNo").reportValidity())return;if(!renewalQualified){renewalQualified=true;$("originalPolicyState").textContent="续保资格校验通过";$("originalPolicyState").classList.add("ok");$("submitBtn").textContent="进入保费计算";alert("原型演示：续保资格校验通过。下一步进入续保保费计算流程。");return}alert("原型演示：已进入续保保费计算流程。资料录入页不计算或展示保费。");return}if(applyPlusRules(false)){alert("当前核保条件不符合PLUS购买规则，不能提交核保。");return}if(!$("form").reportValidity())return;if($("product").value==="plus"&&!$("plusAmount").value){alert("请选择四合一责任共享保额。");$("plusAmount").focus();return}alert(type==="new"?"原型演示：基础必填校验通过，已触发新保核保流程。此操作不会真实提交核保，也不会计算或展示保费。":"原型演示：基础必填校验通过，已触发整单重新核保流程。此操作不会真实提交核保，也不会计算或展示保费。")});
+syncDobFromId("app");syncDobFromId("ins");updateBusinessType();
+</script>
+</body>
+</html>
